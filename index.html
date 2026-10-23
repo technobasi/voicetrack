@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- MANDATORY: Declare support for both light and dark themes -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b0f19" />
+    <meta
+      name="description"
+      content="VoiceTrack – Echtzeit-Pitch-Monitor, Resonanz-Analyse und Stimmfeminisierungs-Training für Discord und Alltag"
+    />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>VoiceTrack — Stimmfeminisierung &amp; Live-Pitch-Monitor</title>
+    <script>
+      {
+        const colorScheme = localStorage.getItem('color-scheme');
+        if (colorScheme === 'light' || colorScheme === 'dark') {
+          const meta = document.querySelector('meta[name="color-scheme"]');
+          if (meta) meta.content = colorScheme;
+          document.documentElement.dataset.theme = colorScheme;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

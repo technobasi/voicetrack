@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* MANDATORY (modern-web-guidance): Apply color-scheme to :root for viewport-wide theming */
+:root {
+  --brand-accent-light: #db2777;
+  --brand-accent-dark: #f472b6;
+  --accent-color: var(--brand-accent-light);
+
+  --bg-surface-light: #f8fafc;
+  --bg-surface-dark: #0b0f19;
+  --bg-card-light: #ffffff;
+  --bg-card-dark: #131b2e;
+  --bg-elevated-light: #f1f5f9;
+  --bg-elevated-dark: #1e293b;
+  --text-primary-light: #0f172a;
+  --text-primary-dark: #f8fafc;
+  --text-secondary-light: #475569;
+  --text-secondary-dark: #94a3b8;
+  --border-subtle-light: #e2e8f0;
+  --border-subtle-dark: #1e293b;
+
+  --color-scrollbar-track: #f1f5f9;
+  --color-scrollbar-thumb: #94a3b8;
+
+  /* Zone colors */
+  --zone-feminin: #f472b6;
+  --zone-androgyn: #c084fc;
+  --zone-maskulin: #38bdf8;
+  --zone-target: #34d399;
+
+  /* Fallback for browsers without light-dark() support */
+  --bg-surface: var(--bg-surface-light);
+  --bg-card: var(--bg-card-light);
+  --bg-elevated: var(--bg-elevated-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --border-subtle: var(--border-subtle-light);
+
+  @media (prefers-color-scheme: dark) {
+    --accent-color: var(--brand-accent-dark);
+    --bg-surface: var(--bg-surface-dark);
+    --bg-card: var(--bg-card-dark);
+    --bg-elevated: var(--bg-elevated-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border-subtle: var(--border-subtle-dark);
+    --color-scrollbar-track: #0f172a;
+    --color-scrollbar-thumb: #475569;
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --accent-color: light-dark(var(--brand-accent-light), var(--brand-accent-dark));
+    --bg-surface: light-dark(var(--bg-surface-light), var(--bg-surface-dark));
+    --bg-card: light-dark(var(--bg-card-light), var(--bg-card-dark));
+    --bg-elevated: light-dark(var(--bg-elevated-light), var(--bg-elevated-dark));
+    --text-primary: light-dark(var(--text-primary-light), var(--text-primary-dark));
+    --text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+    --border-subtle: light-dark(var(--border-subtle-light), var(--border-subtle-dark));
+    --color-scrollbar-track: light-dark(#f1f5f9, #0f172a);
+    --color-scrollbar-thumb: light-dark(#94a3b8, #475569);
+  }
+
+  color-scheme: light dark;
+  accent-color: var(--accent-color);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --accent-color: var(--brand-accent-dark);
+  --bg-surface: var(--bg-surface-dark);
+  --bg-card: var(--bg-card-dark);
+  --bg-elevated: var(--bg-elevated-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --border-subtle: var(--border-subtle-dark);
+  --color-scrollbar-track: #0f172a;
+  --color-scrollbar-thumb: #475569;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --accent-color: var(--brand-accent-light);
+  --bg-surface: var(--bg-surface-light);
+  --bg-card: var(--bg-card-light);
+  --bg-elevated: var(--bg-elevated-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --border-subtle: var(--border-subtle-light);
+  --color-scrollbar-track: #f1f5f9;
+  --color-scrollbar-thumb: #94a3b8;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-variant-numeric: tabular-nums;
+  accent-color: var(--accent-color);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Modal dialog backdrop styling per modern-web-guidance */
+dialog::backdrop {
+  background-color: rgba(8, 12, 24, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+/* Legacy fallback for WebKit/Blink scrollbars when scrollbar-color is unsupported */
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-scrollbar-thumb);
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-scrollbar-track);
+  }
+}
+
+/* Progressive enhancement fallback for browsers without accent-color support */
+@supports not (accent-color: #f472b6) {
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    margin-top: -4px;
+  }
+}
+
+@keyframes gentle-alert-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0), inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 28px 4px rgba(245, 158, 11, 0.28), inset 0 0 0 2px rgba(245, 158, 11, 0.85);
+  }
+}
+
+.discord-drop-alert {
+  animation: gentle-alert-pulse 1.8s ease-in-out infinite;
+}
